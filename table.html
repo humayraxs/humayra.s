@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div id="tableContainer"></div>
+
+<script>
+    // Function to create a dynamic table
+    function createTable(data) {
+        // Create a table element
+        var table = document.createElement('table');
+
+        // Create a table header
+        var thead = document.createElement('thead');
+        var headerRow = document.createElement('tr');
+
+        // Get the column headers from the first object in the data array
+        Object.keys(data[0]).forEach(function(key) {
+            var th = document.createElement('th');
+            th.textContent = key;
+            headerRow.appendChild(th);
+        });
+
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create a table body
+        var tbody = document.createElement('tbody');
+
+        // Loop through the data array and create a row for each object
+        data.forEach(function(obj) {
+            var row = document.createElement('tr');
+            Object.keys(obj).forEach(function(key) {
+                var cell = document.createElement('td');
+                cell.textContent = obj[key];
+                row.appendChild(cell);
+            });
+            tbody.appendChild(row);
+        });
+
+        table.appendChild(tbody);
+
+        return table;
+    }
+
+    // Sample data
+    var data = [
+        { Name: 'John', Age: 30, City: 'New York' },
+        { Name: 'Alice', Age: 25, City: 'Los Angeles' },
+        { Name: 'Bob', Age: 35, City: 'Chicago' }
+    ];
+
+    // Call the createTable function with the sample data
+    var tableContainer = document.getElementById('tableContainer');
+    tableContainer.appendChild(createTable(data));
+</script>
+
+</body>
+</html>
